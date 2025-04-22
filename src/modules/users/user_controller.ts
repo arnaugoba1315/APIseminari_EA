@@ -1,5 +1,5 @@
 // src/controllers/user_controller.ts
-import { saveMethod, createUser, getAllUsers, getUserById, updateUser, deleteUser } from '../users/user_service.js';
+import { saveMethod, createUser, getAllUsers, getUserById, updateUser, deleteUser, logIn } from '../users/user_service.js';
 
 import express, { Request, Response } from 'express';
 
@@ -47,6 +47,15 @@ export const deleteUserHandler = async (req: Request, res: Response) => {
     try {
         const data = await deleteUser(req.params.id);
         res.json(data);
+    } catch (error: any) {
+        res.status(500).json({ message: error.message });
+    }
+};
+export const logInHandler = async (req: Request, res: Response) => {
+    try {
+        const { email, password } = req.body;
+        const user = await logIn(email, password);
+        res.status(200).json(user);
     } catch (error: any) {
         res.status(500).json({ message: error.message });
     }

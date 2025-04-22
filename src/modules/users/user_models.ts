@@ -5,20 +5,32 @@ const userSchema = new mongoose.Schema({
         type: String,
         required : true
     },
+    password : {
+        type: String,
+        required : false
+    },
     age: {
         type: Number,
         required : true
     },
     email: {
         type : String,
-        required : true
-    }
+        required : true,
+        unique: true
+    },
+    phone: {
+        type: Number,
+        required : false
+    },
+
 });
 
 export interface IUser{
-    name : string;
-    age : number;
-    email : string;
+    name: string;
+    password?: string;
+    age?: number;
+    email: string;
+    phone?: number;
 
 }
 
